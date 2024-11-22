@@ -1,0 +1,12 @@
+
+<div>
+    <h1>Welcome to Hermit Challenges!</h1>
+    <button data-controller="pages" data-action="click->pages#displayBamboo">
+        Click for 12 bamboo
+    </button>
+    <div id="twelveBamboo" style="display: none;">
+        <% 12.times do %>
+            <%= image_tag("bamboo.webp", alt: "Bamboo") %>
+        <% end %>
+    </div>
+</div>
