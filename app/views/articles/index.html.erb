@@ -1,14 +1,18 @@
-<div>
-	<h1 class="title">The Hermiton Herald</h1>		
-
+<div class="blog">
+	<h1 class="custom-title">The Hermiton Herald</h1>
+	
+	<p><%= link_to "New Post", new_article_path, class: "action" %></p>
+	
 	<% @articles.each do |article| %>
-		<div class="container">
-			<h2><%= link_to article.title, article_path(article) %></h2>
-			<p><%= article.content_to_html %></p>
-			<%= link_to "Edit", edit_article_path(article) %>
-			<%= link_to "Delete", article_path(article), method: :delete, data: {confirm: "Are you sure?"}%>
+		<div class="article-container">
+			<h2><%= link_to article.title, article_path(article), class: "article-title"%></h2>
+			
+			<div class="article-content"><%= article.content_to_html %></div>
+			
+			<div class="article-actions">
+				<%= link_to "Edit", edit_article_path(article), class: "action" %>
+				<%= link_to "Delete", article_path(article), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "action"%>
+			</div>
 		</div>
 	<% end %>
-
-	<p><%= link_to "New Post", new_article_path %></p>
 </div>
