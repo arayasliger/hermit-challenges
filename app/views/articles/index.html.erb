@@ -1,5 +1,5 @@
 <div>
-    <h1>The Hermiton Herald</h1>
+    <h1 class="title">The Hermiton Herald</h1>
 
     <table>
         <thead>
@@ -14,7 +14,7 @@
             <% @articles.each do |article| %>
                 <tr>
                     <td><%= article.title %></td>
-                    <td><%= article.content %></td>
+                    <td><%= article.content_to_html %></td>
                     <td><%= link_to "Show", article_path(article) %></td>
                     <td><%= link_to "Edit", edit_article_path(article) %></td>
                     <td><%= button_to "Delete", article_path(article), method: :delete, data: {confirm: "Are you sure?"}%></td>
