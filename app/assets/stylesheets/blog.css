@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'Chomsky';
+    src: url('asset_path("Chomsky.otf")') format('opentype');
+}
+
+.title {
+    font-family: 'Chomsky';
+}
