@@ -1,4 +1,4 @@
-.bamboo {
+.center {
     width: 660px;
     margin: auto;
     margin-top: 20px;
@@ -33,4 +33,9 @@ html {
 
 h1 {
     font-size: 44px;
+}
+
+canvas {
+    border: 1px solid #d3d3d3;
+    background-color: #f1f1f1;
 }

@@ -1,0 +1,19 @@
+<body class="center">
+  <div>
+    <% colors = ["red", "orange", "yellow", "green", "blue", "purple"] %>
+    
+    <% colors.each do |color| %>
+      <%= tag.button(
+        type: "button",
+        style: "background-color: #{color};",
+        data: {
+          controller: "color-button",
+          action: "click->color-button#selectColor",
+          "color-button-color-value": color
+        })
+      %>
+    <% end%>
+  </div>
+<canvas data-controller="canvas"></canvas>
+</body>
+
