@@ -1,6 +1,11 @@
-<body class="center">
-  <div>
-    <% colors = ["red", "orange", "yellow", "green", "blue", "purple"] %>
+<body class="center blank-map">
+  
+  <h1>Pixel Art</h1>
+  
+  <canvas class="canvas-main" data-controller="canvas"></canvas>
+  
+  <div class="colors">
+    <% colors = ["red", "orange", "yellow", "green", "blue", "purple", "black", "gray", "brown", "white"] %>
     
     <% colors.each do |color| %>
       <%= tag.button(
@@ -14,6 +19,5 @@
       %>
     <% end%>
   </div>
-<canvas data-controller="canvas"></canvas>
 </body>
 

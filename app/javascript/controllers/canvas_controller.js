@@ -32,7 +32,7 @@ export default class extends Controller {
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
 
-    const gridSize = 16;
+    const gridSize = 8;
     const newX = Math.floor(x / gridSize) * gridSize;
     const newY = Math.floor(y / gridSize) * gridSize;
     
