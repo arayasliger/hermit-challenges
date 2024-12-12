@@ -1,20 +1,28 @@
-<div class="center">
+<body class="center">
   <h1>Welcome to Hermit Challenges!</h1>
 
-  <%= 
-    tag.button(
-      "Click for 12 bamboo",
-      type: "button",
-      data: { 
-        controller: "pages", 
-        action: "click->pages#displayBamboo" 
-      }, 
-    )
-  %>
+  
 
-  <div id="twelveBamboo" style="display: none;">
-    <% 12.times do %>
-      <%= image_tag("bamboo.webp", alt: "Bamboo") %>
-    <% end %>
+  <div class="challenges-container">
+    <h2 class="challenges-heading">Challenges</h2>
+    <p>
+      <%= tag.button(
+        "Click for 12 bamboo",
+        type: "button",
+        data: { 
+          controller: "pages", 
+          action: "click->pages#displayBamboo" 
+        })
+      %>
+    </p>
+
+    <div id="twelveBamboo" style="display: none;">
+      <% 12.times do %>
+        <%= image_tag("bamboo.webp", alt: "Bamboo", style: "width: 50px;") %>
+      <% end %>
+    </div>
+
+    <p><%= link_to "The Hermiton Herald", articles_path, class: "challenge-link" %></p>
+    <p><%= link_to "Pixel Art Canvas", canvas_path, class: "challenge-link"%></p>
   </div>
-</div>
+</body>

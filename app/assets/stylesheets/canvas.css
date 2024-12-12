@@ -1,5 +1,6 @@
-.colors {
-  margin: 25px;
+.tools {
+  margin: auto;
+  width: 512px;
   padding: 10px;
   background-color: blanchedalmond;
   border-radius: 8px;
@@ -7,13 +8,6 @@
 
 .canvas-main {
   margin: 20px;
-  position: relative;
-}
-
-.blank-map {
-  background-color: azure;
-  background-image: url('/assets/blankmap-5fe6e546.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 555px 555px;
+  position: center;
+  border: solid grey 1px;
 }

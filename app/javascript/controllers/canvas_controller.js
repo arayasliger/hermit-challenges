@@ -1,6 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="canvas"
 export default class extends Controller {
   connect() {
     console.log("CanvasController connected!");
@@ -13,6 +12,7 @@ export default class extends Controller {
 
     this.isDrawing = false;
     this.currentColor = "black";
+    this.currentSize = 16;
 
     this.canvas.addEventListener("mousedown", () => (this.isDrawing = true));
     this.canvas.addEventListener("mouseup", () => (this.isDrawing = false));
@@ -22,7 +22,12 @@ export default class extends Controller {
 
   updateColor(color) {
     this.currentColor = color;
-    console.log(`Canvas color updated to: ${this.currentColor}`);
+    console.log(`Color updated to: ${this.currentColor}`);
+  }
+
+  updateSize(size) {
+    this.currentSize = size;
+    console.log(`Pixel size updated to: ${this.currentSize}`);
   }
   
   draw(event) {
@@ -32,7 +37,7 @@ export default class extends Controller {
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
 
-    const gridSize = 8;
+    let gridSize = this.currentSize;
     const newX = Math.floor(x / gridSize) * gridSize;
     const newY = Math.floor(y / gridSize) * gridSize;
     
