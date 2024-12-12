@@ -1,0 +1,13 @@
+.tools {
+  margin: auto;
+  width: 512px;
+  padding: 10px;
+  background-color: blanchedalmond;
+  border-radius: 8px;
+}
+
+.canvas-main {
+  margin: 20px;
+  position: center;
+  border: solid grey 1px;
+}
