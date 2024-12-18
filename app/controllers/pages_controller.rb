@@ -4,4 +4,8 @@ class PagesController < ApplicationController
 
   def canvas
   end
+
+  def todo
+    @tasks = Task.all
+  end
 end
