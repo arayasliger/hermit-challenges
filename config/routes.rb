@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   root "pages#home"
+
   get "canvas", to: "pages#canvas"
   resources :articles
+
+  get "todo", to: "pages#todo"
+  resources :tasks, only: [ :create ]
 end

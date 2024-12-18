@@ -1,0 +1,14 @@
+<h1>Todo List</h1>
+<!-- Form to Add a New Task -->
+<%= form_with url: tasks_path, method: :post, local: true do |form| %>
+  <%= form.label :name, "New Task" %>
+  <%= form.text_field :name, required: true %>
+  <%= form.submit "Add Task" %>
+<% end %>
+
+<!-- Display All Tasks -->
+<ul id="task-list">
+  <% @tasks.each do |task| %>
+    <li><%= task.name %></li>
+  <% end %>
+</ul>
