@@ -10,6 +10,9 @@ consumer.subscriptions.create("TodoChannel", {
   },
 
   received(data) {
-    // Called when there's incoming data on the websocket for this channel
+    const todoList = document.getElementById("todo-list");
+    const newTask = document.createElement("li");
+    newTask.textContent = data.task;
+    todoList.appendChild(newTask);
   }
 });
