@@ -15,5 +15,5 @@ Rails.application.routes.draw do
   resources :articles
 
   get "todo", to: "pages#todo"
-  resources :tasks, only: [ :create ]
+  resources :tasks, only: [ :create, :destroy ]
 end
