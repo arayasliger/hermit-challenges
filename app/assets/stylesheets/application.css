@@ -9,22 +9,6 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
-html {
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 10px;
-}
-
-h1 {
-  font-size: 44px;
-}
-
-.center {
-  margin: auto;
-  margin-top: 20px;
-  text-align: center;
-  background-color: azure;
-}
-
 button {
   background-color: #039a1a;
   border: none;
@@ -44,4 +28,9 @@ button:active{
   background-color: #028515;
   box-shadow: 0 1px 3px #B7B5B0;
   transform: translateY(2px);
+}
+
+.strikethrough {
+  text-decoration: line-through;
+  color: gray;
 }

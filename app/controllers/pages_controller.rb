@@ -6,7 +6,5 @@ class PagesController < ApplicationController
   end
 
   def todo
-    @tasks = Task.all
-    @task = Task.new
   end
 end

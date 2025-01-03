@@ -10,9 +10,6 @@ consumer.subscriptions.create("TodoChannel", {
   },
 
   received(data) {
-    const todoList = document.getElementById("todo-list");
-    const newTask = document.createElement("li");
-    newTask.textContent = data.task;
-    todoList.appendChild(newTask);
+    $('#todo-list').append(data.list_item);
   }
 });

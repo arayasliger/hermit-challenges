@@ -20,17 +20,3 @@
     margin: auto;
     padding: 10px;
 }
-
-a {
-    width: 100%;
-    text-decoration: none;
-    font-size: 18px;
-    border: gray 1px solid;
-    padding: 10px;
-}
-
-p {
-    margin: auto;
-    margin-bottom: 30px;
-    width: 80%;
-}

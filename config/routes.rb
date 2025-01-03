@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get "canvas", to: "pages#canvas"
   resources :articles
 
-  get "todo", to: "pages#todo"
-  resources :tasks, only: [ :create, :destroy ]
+  get "lists", to: "list#index"
+  get "items/create"
+  resources :list, only: [ :index ]
+  resources :items, only: [ :create ]
 end
