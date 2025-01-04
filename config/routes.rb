@@ -17,5 +17,5 @@ Rails.application.routes.draw do
   get "lists", to: "list#index"
   get "items/create"
   resources :list, only: [ :index ]
-  resources :items, only: [ :create ]
+  resources :items, only: [ :create, :destroy ]
 end

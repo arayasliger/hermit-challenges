@@ -5,8 +5,6 @@ class ItemsController < ApplicationController
 
     if item.save
       ActionCable.server.broadcast("todo_channel", { list_item: item_render(item) })
-    else
-      render json: { error: item.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -14,6 +12,10 @@ class ItemsController < ApplicationController
   end
 
   def destroy
+    @item = Item.find(params[:id])
+    if @item.destroy
+      ActionCable.server.broadcast("todo_channel", { action: "delete", id: @item.id })
+    end
   end
 
   private

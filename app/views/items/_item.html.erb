@@ -1,9 +1,13 @@
-<div class="item">
+<div class="item", id="item-<%= item.id %>">
   <div class="ui form">
     <div class="inline field">
       <div class="ui checkbox">
         <input type="checkbox" tabindex="0" class="hidden">
         <label><%= item.item %></label>
+      </div>
+      <div class="ui right floated content">
+        <i class="eraser link icon" data-id="<%= item.id %>"></i>
+        <i class="edit link icon" data-id="<%= item.id %>"></i>
       </div>
     </div>
   </div>
