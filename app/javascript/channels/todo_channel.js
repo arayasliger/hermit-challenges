@@ -15,11 +15,15 @@ consumer.subscriptions.create("TodoChannel", {
     if (data.action === "delete") {
       $(`#item-${data.id}`).remove(); // Remove the item from the DOM
     }
+
+    if (data.action === "update") {
+      $(`#item-${data.id} .item-content`).text(data.content);
+    }
   }
 });
 
 $('#todo-list').on('click', '.eraser.link.icon', function () {
-  const itemId = $(this).data('id'); // Get the item's ID
+  const itemId = $(this).data('id');
 
   // Send DELETE request to the backend
   fetch(`/items/${itemId}`, {
@@ -29,8 +33,39 @@ $('#todo-list').on('click', '.eraser.link.icon', function () {
       "Content-Type": "application/json",
     },
   });
-
-  // Remove the item from the DOM
-  $(`#item-${itemId}`).remove();
 });
 
+$('#todo-list').on('click', '.edit.link.icon', function () {
+  const itemId = $(this).data('id');
+  const contentLabel = $(`#item-${itemId} .item-content`);
+  const editInput = $(`#item-${itemId} .edit-input`);
+
+  contentLabel.hide();
+  editInput.val(contentLabel.text()).show().focus();
+
+  editInput.on('keypress', function (e) {
+    if (e.which === 13) {
+      const updatedContent = $(this).val();
+      
+      // Send update to backend
+      fetch(`/items/${itemId}`, {
+        method: "PUT",
+        headers: {
+          "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content"),
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ item: { item: updatedContent } }),
+      });
+    
+      // Hide the input field and update the content in the DOM
+      contentLabel.text(updatedContent).show();
+      editInput.hide();
+    }
+  });
+
+  // Cancel editting by clicking out of input field
+  editInput.on('blur', function() {
+    contentLabel.show();
+    editInput.hide();
+  });
+});

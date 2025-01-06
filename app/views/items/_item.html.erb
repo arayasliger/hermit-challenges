@@ -3,7 +3,8 @@
     <div class="inline field">
       <div class="ui checkbox">
         <input type="checkbox" tabindex="0" class="hidden">
-        <label><%= item.item %></label>
+        <label class="item-content"><%= item.item %></label>
+        <input type="text" class="edit-input" data-id="<%= item.id %>" style="display: none;" />
       </div>
       <div class="ui right floated content">
         <i class="eraser link icon" data-id="<%= item.id %>"></i>
