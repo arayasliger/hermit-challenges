@@ -23,4 +23,7 @@ Rails.application.routes.draw do
       patch :toggle_completed
     end
   end
+
+  get "map", to: "map#index"
+  resources :coordinates
 end
