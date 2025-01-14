@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_03_203532) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_10_210040) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -23,6 +23,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_203532) do
     t.integer "list_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "completed", default: false
   end
 
   create_table "lists", force: :cascade do |t|

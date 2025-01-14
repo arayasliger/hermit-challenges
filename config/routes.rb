@@ -18,4 +18,9 @@ Rails.application.routes.draw do
   get "items/create"
   resources :list, only: [ :index ]
   resources :items, only: [ :create, :destroy, :update ]
+  resources :items do
+    member do
+      patch :toggle_completed
+    end
+  end
 end
