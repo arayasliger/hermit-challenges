@@ -1,0 +1,67 @@
+<div class="ui container" style="padding-top: 20px;">
+
+  <h1 class="ui center aligned header">Enter Coordinates on the Map</h1>
+
+  <div class="ui stackable grid" data-controller="modal">
+    
+    <div class="row">
+      
+      <!--Map-->
+      <div class="twelve wide column">
+        <div class="map-container">
+          <canvas class="map"
+                  data-controller="map"
+                  data-map-coordinates="<%= @coords.to_json %>">
+          </canvas>
+        </div>
+      </div>
+
+      <!--Existing Coords List-->
+      <div class="four wide column">
+        <%= button_tag "Add Coordinate", class: "ui fluid button", data: { action: "modal#show" } %>
+        <div class="ui segment scrollable existing-coords">
+          <div class="ui divided items">
+            <% @coords.each do |c| %>
+              <div class="item">
+                <div class="content">
+                  <a class="header"> <%= c.label %> </a>
+                  <div class="meta"> x: <%= c.x %>, y: <%= c.y %> </div>
+                  <div class="extra">
+                    <a class="ui right floated label">Delete</a>
+                    <a class="ui right floated label">Edit</a>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Add coordinates form-->
+    <div class="ui tiny modal" data-modal-target="modal">
+      <i class="close icon"></i>
+      <div class="header">Add a New Coordinate</div>
+      <div class="content">
+        <div class="ui form">
+        <%= form_with model: Coordinate.new, url: coordinates_path, local: true do |f| %>
+          <div class="field">
+            <%= f.text_field :label, placeholder: "Label" %>
+          </div>
+          <div class="two fields">
+            <div class="field">
+              <%= f.text_field :x, placeholder: "X Coordinate" %>
+            </div>
+            <div class="field">
+              <%= f.text_field :y, placeholder: "Y Coordinte" %>
+            </div>
+          </div>
+          <%= f.submit "Add", class: "ui submit button" %>
+        <% end %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+

@@ -25,5 +25,5 @@ Rails.application.routes.draw do
   end
 
   get "map", to: "map#index"
-  resources :coordinates
+  resources :coordinates, only: [ :create, :update, :destroy ]
 end

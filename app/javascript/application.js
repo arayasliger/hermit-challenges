@@ -7,3 +7,4 @@ import "jquery"
 document.addEventListener('turbo:load', () => {
   $('.ui.checkbox').checkbox(); // Initializes checkboxes
 });
+
