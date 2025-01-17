@@ -1,0 +1,10 @@
+<div class="item">
+  <div class="content">
+    <a class="header"> <%= coordinate.label %> </a>
+    <div class="meta"> x: <%= coordinate.x %>, y: <%= coordinate.y %> </div>
+    <div class="extra">
+      <%= link_to "Delete", coordinate_path(coordinate), class: "ui right floated label", data: { turbo_method: "delete" } %>
+      <%= link_to "Edit", "#", class: "ui right floated label", data: { action: "modal#show", modal: "editModal" } %>
+    </div>
+  </div>
+</div>

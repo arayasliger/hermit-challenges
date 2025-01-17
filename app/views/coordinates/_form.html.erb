@@ -1,0 +1,18 @@
+<div class="content">
+  <div class="ui form">
+    <%= form_with model: coord, local: true do |f| %>
+      <div class="field">
+        <%= f.text_field :label, placeholder: "Label", value: coord&.label %>
+      </div>
+      <div class="two fields">
+        <div class="field">
+          <%= f.text_field :x, placeholder: "X Coordinate", value: coord&.x%>
+        </div>
+        <div class="field">
+          <%= f.text_field :y, placeholder: "Y Coordinte", value: coord&.y %>
+        </div>
+      </div>
+      <%= f.submit button_text, class: "ui submit button" %>
+    <% end %>
+  </div>
+</div>
