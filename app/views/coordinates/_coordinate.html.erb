@@ -4,7 +4,7 @@
     <div class="meta"> x: <%= coordinate.x %>, y: <%= coordinate.y %> </div>
     <div class="extra">
       <%= link_to "Delete", coordinate_path(coordinate), class: "ui right floated label", data: { turbo_method: "delete" } %>
-      <%= link_to "Edit", "#", class: "ui right floated label", data: { action: "modal#show", modal: "editModal" } %>
+      <%= link_to "Edit", "#", class: "ui right floated label", data: { action: "modal#show", modal: "editModal", href: "coordinate_path(coordinate)" } %>
     </div>
   </div>
 </div>

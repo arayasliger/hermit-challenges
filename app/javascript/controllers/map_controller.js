@@ -12,6 +12,19 @@ export default class extends Controller {
     this.canvas.height = 600;
 
     this.ctx.translate(this.canvas.width / 2, this.canvas.height / 2);
+
+    const backgroundImage = new Image();
+    backgroundImage.src = this.canvas.dataset.background;
+
+    backgroundImage.onload = () => {
+      this.ctx.drawImage(
+        backgroundImage,
+        -this.canvas.width / 2,
+        -this.canvas.height / 2,
+        this.canvas.width,
+        this.canvas.height
+      );
+    }
     
     const coordinatesData = this.canvas.dataset.mapCoordinates;
     this.coordinates = JSON.parse(coordinatesData);
@@ -108,6 +121,5 @@ export default class extends Controller {
         dataset: { modal: "addModal" },
       },
     });
-  }
+  };
 }
-

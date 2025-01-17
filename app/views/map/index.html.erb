@@ -11,8 +11,9 @@
         <div class="map-container">
           <canvas class="map"
                   data-controller="map"
-                  data-map-coordinates="<%= @coords.to_json %>">
-          </canvas>
+                  data-map-coordinates="<%= @coords.to_json %>"
+                  data-background="<%= asset_path('map.png')%>"
+          ></canvas>
           <div id="map-tooltip" class="ui pointing below basic label"></div>
         </div>
       </div>
