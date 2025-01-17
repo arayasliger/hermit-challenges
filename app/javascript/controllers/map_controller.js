@@ -40,8 +40,8 @@ export default class extends Controller {
 
   trackMouse(event) {
     const rect = this.canvas.getBoundingClientRect();
-    const mouseX = event.clientX - rect.left;
-    const mouseY = event.clientY - rect.top;
+    const mouseX = Math.round(event.clientX - rect.left);
+    const mouseY = Math.round(event.clientY - rect.top);
     const scaleX = this.canvas.width / rect.width
     const scaleY = this.canvas.height / rect.height
     const canvasX = mouseX * scaleX
@@ -52,16 +52,14 @@ export default class extends Controller {
     const translatedY = Math.round(-(canvasY - this.canvas.height / 2));
 
     // Clear
-    this.ctx.clearRect(this.canvas.width / 2 - 150, -this.canvas.height / 2, 150, 80);
+    this.ctx.clearRect(this.canvas.width / 2 - 150, -this.canvas.height / 2, 150, 45);
 
     // Display coords
     this.ctx.fillStyle = "black";
     this.ctx.font = "14px Arial";
     this.ctx.textAlign = "right";
     this.ctx.fillText(`X: ${translatedX}, Y: ${translatedY}`, this.canvas.width / 2 - 10, -this.canvas.height / 2 + 20);
-
-    this.ctx.fillText(`X: ${event.clientX}, Y: ${event.clientY}`, this.canvas.width / 2 - 10, -this.canvas.height / 2 + 40);
-    this.ctx.fillText(`X: ${Math.round(mouseX)}, Y: ${Math.round(mouseY)}`, this.canvas.width / 2 - 10, -this.canvas.height / 2 + 60);
+    this.ctx.fillText(`X: ${mouseX}, Y: ${mouseY}`, this.canvas.width / 2 - 10, -this.canvas.height / 2 + 40);
 
     const hoveredPoint = this.points.find((point) => {
       const distance = Math.sqrt((translatedX - point.x) ** 2 + (translatedY - point.y) ** 2);
@@ -69,29 +67,47 @@ export default class extends Controller {
     });
 
     if (hoveredPoint) {
-      console.log(`Hovered over ${hoveredPoint.label}, X=${hoveredPoint.x}, Y= ${hoveredPoint.y}`)
-      this.showTooltip(hoveredPoint);
+      this.showTooltip(hoveredPoint, mouseX, mouseY);
     } else {
       this.hideTooltip();
     };
+
+    this.canvas.addEventListener("click", (event) => this.addPoint(translatedX, translatedY));
   }
 
-  showTooltip(point){
-    this.ctx.clearRect(-this.canvas.width / 2, -this.canvas.height / 2, this.canvas.width, this.canvas.height);
-    this.drawCoordinates(this.coordinates);
+  showTooltip(point, x, y) {
+    const tooltip = document.getElementById("map-tooltip");
 
-    this.ctx.fillStyle = "black";
-    this.ctx.font = "12px Arial";
-    this.ctx.fillText(
-      `${point.label} X: ${point.x}, Y: ${point.y}`,
-      point.x + 50,
-      -point.y - 10
-    );
+    tooltip.style.display = "block";
+    tooltip.style.left = `${x - tooltip.offsetWidth / 2}px`;
+    tooltip.style.top = `${y - 40 }px`;
+    tooltip.textContent = `${point.label}, X: ${point.x}, Y: ${point.y}`;
   }
 
   hideTooltip() {
-    this.ctx.clearRect(-this.canvas.width / 2, -this.canvas.height / 2, this.canvas.width, this.canvas.height);
-    this.drawCoordinates(this.coordinates);
+    const tooltip = document.getElementById("map-tooltip");
+    tooltip.style.display = "none";
+  }
+
+  addPoint(x, y) {
+    const modalController = this.application.getControllerForElementAndIdentifier(
+      document.querySelector("[data-controller='modal']"),
+      "modal"
+    );
+
+    const addModal = modalController.addModalTarget;
+    const inputX = addModal.querySelector("#x-coord");
+    const inputY = addModal.querySelector("#y-coord");
+
+    inputX.value = x;
+    inputY.value = y;
+
+    modalController.show({
+      preventDefault: () => {},
+      target: {
+        dataset: { modal: "addModal" },
+      },
+    });
   }
 }
 

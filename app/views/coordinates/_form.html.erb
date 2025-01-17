@@ -6,10 +6,10 @@
       </div>
       <div class="two fields">
         <div class="field">
-          <%= f.text_field :x, placeholder: "X Coordinate", value: coord&.x%>
+          <%= f.text_field :x, placeholder: "X Coordinate", id: "x-coord", value: coord&.x%>
         </div>
         <div class="field">
-          <%= f.text_field :y, placeholder: "Y Coordinte", value: coord&.y %>
+          <%= f.text_field :y, placeholder: "Y Coordinte", id: "y-coord", value: coord&.y %>
         </div>
       </div>
       <%= f.submit button_text, class: "ui submit button" %>
