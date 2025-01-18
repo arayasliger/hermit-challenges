@@ -16,6 +16,9 @@ export default class extends Controller {
     const backgroundImage = new Image();
     backgroundImage.src = this.canvas.dataset.background;
 
+    const coordinatesData = this.canvas.dataset.mapCoordinates;
+    this.coordinates = JSON.parse(coordinatesData);
+
     backgroundImage.onload = () => {
       this.ctx.drawImage(
         backgroundImage,
@@ -24,13 +27,10 @@ export default class extends Controller {
         this.canvas.width,
         this.canvas.height
       );
+
+      this.drawCoordinates(this.coordinates);
     }
     
-    const coordinatesData = this.canvas.dataset.mapCoordinates;
-    this.coordinates = JSON.parse(coordinatesData);
-
-    this.drawCoordinates(this.coordinates);
-
     this.canvas.addEventListener("mousemove", (event) => this.trackMouse(event));
   }
 
@@ -44,7 +44,7 @@ export default class extends Controller {
 
       this.ctx.beginPath();
       this.ctx.arc(x, -y, radius, 0, 2 * Math.PI);
-      this.ctx.fillStyle = "green";
+      this.ctx.fillStyle = coord.color;
       this.ctx.fill();
 
       this.points.push({ x, y, radius, label: coord.label });
