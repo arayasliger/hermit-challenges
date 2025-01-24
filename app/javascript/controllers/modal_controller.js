@@ -32,6 +32,14 @@ export default class extends Controller {
     }
   }
 
+  clearCoordinates() {
+    const xField = this.addModalTarget.querySelector("#x-coord");
+    const yField = this.addModalTarget.querySelector("#y-coord");
+
+    if (xField) xField.value = "";
+    if (yField) yField.value = "";
+  }
+
   initializeShapeSelector(modal) {
     const shapeInput = modal.querySelector("#shape-input");
     
@@ -39,7 +47,6 @@ export default class extends Controller {
       const button = event.target.closest(".ui.button");
       if (button) {
         shapeInput.value = button.dataset.shape;
-        console.log(`Shape updated to: ${shapeInput.value}`); // Debugging log
       }
     });
   }

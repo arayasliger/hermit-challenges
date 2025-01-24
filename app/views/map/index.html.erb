@@ -20,9 +20,12 @@
 
       <!--Existing Coords List-->
       <div class="four wide column">
-        <%= button_tag "Add Coordinate", class: "ui fluid button", data: { action: "modal#show", modal: "addModal" } %>
+        <%= button_tag "Add Coordinate",
+          class: "ui fluid button",
+          data: { action: "click->modal#clearCoordinates modal#show", modal: "addModal" }
+        %>
         <div class="ui segment scrollable existing-coords">
-          <div class="ui divided items">
+          <div class="ui divided items" data-controller="coordinates">
             <%= render @coords %>
           </div>
         </div>

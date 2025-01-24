@@ -3,8 +3,6 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="map"
 export default class extends Controller {
   connect() {
-    console.log("Connected to Map")
-
     this.canvas = this.element;
     this.ctx = this.canvas.getContext("2d");
 
@@ -18,6 +16,9 @@ export default class extends Controller {
 
     const coordinatesData = this.canvas.dataset.mapCoordinates;
     this.coordinates = JSON.parse(coordinatesData);
+
+    this.offsetX = 0;
+    this.offsetY = 0;
 
     backgroundImage.onload = () => {
       // this.ctx.drawImage(
@@ -38,8 +39,8 @@ export default class extends Controller {
     this.points = []
     
     coordinates.forEach((coord) => {
-      const x = coord.x;
-      const y = coord.y;
+      const x = coord.x + this.offsetX;
+      const y = coord.y + this.offsetY;
       const radius = 5;
       const shape = coord.shape;
 
@@ -59,7 +60,7 @@ export default class extends Controller {
           break;
       }
 
-      this.points.push({ x, y, radius, label: coord.label });
+      this.points.push({ x: coord.x, y: coord.y, radius, label: coord.label });
     })
   }
 
@@ -98,6 +99,18 @@ export default class extends Controller {
     this.ctx.fill();
   }
 
+  focusPoint (x, y) {
+    this.offsetX = -x;
+    this.offsetY = -y;
+
+    this.redrawCanvas();
+  }
+
+  redrawCanvas() {
+    this.ctx.clearRect(-this.canvas.width / 2, -this.canvas.height / 2, this.canvas.width, this.canvas.height);
+    this.drawCoordinates(this.coordinates);
+  }
+
   trackMouse(event) {
     const rect = this.canvas.getBoundingClientRect();
     const mouseX = Math.round(event.clientX - rect.left);
@@ -108,11 +121,11 @@ export default class extends Controller {
     const canvasY = mouseY * scaleY
 
     // Translate to map coordinates
-    const translatedX = Math.round(canvasX - this.canvas.width / 2);
-    const translatedY = Math.round(-(canvasY - this.canvas.height / 2));
+    const translatedX = Math.round(canvasX - this.canvas.width / 2) - this.offsetX;
+    const translatedY = Math.round(-(canvasY - this.canvas.height / 2)) - this.offsetY;
 
-    // Clear
-    this.ctx.clearRect(this.canvas.width / 2 - 100, -this.canvas.height / 2, 100, 45);
+    // Clear corner
+    this.ctx.clearRect(this.canvas.width / 2 - 150, -this.canvas.height / 2, 150, 45);
 
     // Display coords
     this.ctx.fillStyle = "black";

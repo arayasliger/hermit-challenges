@@ -1,6 +1,12 @@
 <div class="item">
   <div class="content">
-    <a class="header"> <%= coordinate.label %> </a>
+    <%= link_to coordinate.label, "#", class: "header", 
+      data: {
+        action: "click->coordinates#focusPoint",
+        x: coordinate.x, 
+        y: coordinate.y 
+      }
+    %>
     <div class="meta"> x: <%= coordinate.x %>, y: <%= coordinate.y %> </div>
     <div class="extra">
       <%= link_to "Delete", coordinate_path(coordinate), class: "ui right floated label", data: { turbo_method: "delete" } %>
