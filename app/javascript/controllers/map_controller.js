@@ -20,13 +20,13 @@ export default class extends Controller {
     this.coordinates = JSON.parse(coordinatesData);
 
     backgroundImage.onload = () => {
-      this.ctx.drawImage(
-        backgroundImage,
-        -this.canvas.width / 2,
-        -this.canvas.height / 2,
-        this.canvas.width,
-        this.canvas.height
-      );
+      // this.ctx.drawImage(
+      //   backgroundImage,
+      //   -this.canvas.width / 2,
+      //   -this.canvas.height / 2,
+      //   this.canvas.width,
+      //   this.canvas.height
+      // );
 
       this.drawCoordinates(this.coordinates);
     }
@@ -41,14 +41,61 @@ export default class extends Controller {
       const x = coord.x;
       const y = coord.y;
       const radius = 5;
+      const shape = coord.shape;
 
-      this.ctx.beginPath();
-      this.ctx.arc(x, -y, radius, 0, 2 * Math.PI);
       this.ctx.fillStyle = coord.color;
-      this.ctx.fill();
+      
+      switch (shape) {
+        case "circle":
+          this.drawCircle(x, y, radius);
+          break;
+
+        case "square":
+          this.drawSquare(x, y, radius);
+          break;
+
+        case "star":
+          this.drawStar(x, y, radius, 5, 2, 1.5);
+          break;
+      }
 
       this.points.push({ x, y, radius, label: coord.label });
     })
+  }
+
+  drawCircle(x, y, radius) {
+    this.ctx.beginPath();
+    this.ctx.arc(x, -y, radius, 0, 2 * Math.PI);
+    this.ctx.fill();
+  }
+
+  drawSquare(x, y, radius) {
+    const size = radius * 2; // Square's side length
+    this.ctx.beginPath();
+    this.ctx.rect(x - radius, -y - radius, size, size); // Centered square
+    this.ctx.fill();
+  }
+  
+  drawStar(x, y, radius, points, inset, scale) {
+    this.ctx.beginPath();
+    const step = Math.PI / points;
+    const outerRadius = radius * scale;
+    const innerRadius = (radius/inset) * scale
+    let angle = -Math.PI / 2;
+    let i = 0;
+  
+    while (i < points * 2) {
+      const r = i % 2 === 0 ? outerRadius : innerRadius;
+      const px = x + r * Math.cos(angle);
+      const py = -y + r * Math.sin(angle);
+
+      this.ctx.lineTo(px, py);
+      angle += step;
+      i++;
+    }
+  
+    this.ctx.closePath();
+    this.ctx.fill();
   }
 
   trackMouse(event) {
@@ -65,7 +112,7 @@ export default class extends Controller {
     const translatedY = Math.round(-(canvasY - this.canvas.height / 2));
 
     // Clear
-    this.ctx.clearRect(this.canvas.width / 2 - 150, -this.canvas.height / 2, 150, 45);
+    this.ctx.clearRect(this.canvas.width / 2 - 100, -this.canvas.height / 2, 100, 45);
 
     // Display coords
     this.ctx.fillStyle = "black";
@@ -93,7 +140,7 @@ export default class extends Controller {
 
     tooltip.style.display = "block";
     tooltip.style.left = `${x - tooltip.offsetWidth / 2}px`;
-    tooltip.style.top = `${y - 40 }px`;
+    tooltip.style.top = `${y - 40}px`;
     tooltip.textContent = `${point.label}, X: ${point.x}, Y: ${point.y}`;
   }
 

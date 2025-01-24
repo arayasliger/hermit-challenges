@@ -6,10 +6,29 @@
       </div>
       <div class="two fields">
         <div class="field">
-          <%= f.text_field :x, placeholder: "X Coordinate", id: "x-coord", value: coord&.x%>
+          <%= f.text_field :x, placeholder: "X Coordinate", id: "x-coord", value: coord&.x %>
         </div>
         <div class="field">
           <%= f.text_field :y, placeholder: "Y Coordinte", id: "y-coord", value: coord&.y %>
+        </div>
+      </div>
+      <div class="two fields">
+        <div class="field">
+          <%= f.text_field :color, placeholder: "Color", id: "color", value: coord&.color %>
+        </div>
+        <div class="field">
+          <div id="shape-selector" class="ui icon buttons">
+            <button type="button" data-shape="circle" class="ui button">
+              <i class="circle icon"></i>
+            </button>
+            <button type="button" data-shape="square" class="ui button">
+              <i class="square icon"></i>
+            </button>
+            <button type="button" data-shape="star" class="ui button">
+              <i class="star icon"></i>
+            </button>
+          </div>
+          <%= f.hidden_field :shape, id: "shape-input", value: coord&.shape %>
         </div>
       </div>
       <%= f.submit button_text, class: "ui submit button" %>

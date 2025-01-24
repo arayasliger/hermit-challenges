@@ -1,6 +1,10 @@
 class CoordinatesController < ApplicationController
   def create
     @coord = Coordinate.new(coordinate_params)
+
+    @coord.color = "black" if @coord.color.blank?
+    @coord.shape = "circle" if @coord.shape.blank?
+
     if @coord.save
       redirect_to map_path
     end
@@ -22,6 +26,6 @@ class CoordinatesController < ApplicationController
   private
 
   def coordinate_params
-    params.require(:coordinate).permit(:label, :x, :y)
+    params.require(:coordinate).permit(:label, :x, :y, :color, :shape)
   end
 end
