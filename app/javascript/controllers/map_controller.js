@@ -20,6 +20,8 @@ export default class extends Controller {
     this.offsetX = 0;
     this.offsetY = 0;
 
+    this.startPoint = null;
+
     backgroundImage.onload = () => {
       // this.ctx.drawImage(
       //   backgroundImage,
@@ -33,6 +35,7 @@ export default class extends Controller {
     }
     
     this.canvas.addEventListener("mousemove", (event) => this.trackMouse(event));
+    this.canvas.addEventListener("click", (event) => this.handleClick(event));
   }
 
   drawCoordinates(coordinates) {
@@ -108,6 +111,19 @@ export default class extends Controller {
 
   redrawCanvas() {
     this.ctx.clearRect(-this.canvas.width / 2, -this.canvas.height / 2, this.canvas.width, this.canvas.height);
+    
+    if (this.lines) {
+      this.lines.forEach((line) => {
+        this.ctx.beginPath();
+        this.ctx.moveTo(line.aX + this.offsetX, -line.aY - this.offsetY);
+        this.ctx.lineTo(line.bX + this.offsetX, -line.bY - this.offsetY);
+        this.ctx.strokeStyle = "gray";
+        this.ctx.lineWidth = 1;
+        this.ctx.stroke();
+        this.ctx.closePath();
+      });
+    }
+    
     this.drawCoordinates(this.coordinates);
   }
 
@@ -144,8 +160,6 @@ export default class extends Controller {
     } else {
       this.hideTooltip();
     };
-
-    this.canvas.addEventListener("click", (event) => this.addPoint(translatedX, translatedY));
   }
 
   showTooltip(point, x, y) {
@@ -160,6 +174,31 @@ export default class extends Controller {
   hideTooltip() {
     const tooltip = document.getElementById("map-tooltip");
     tooltip.style.display = "none";
+  }
+
+  handleClick(event) {
+    const rect = this.canvas.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+  
+    const scaleX = this.canvas.width / rect.width;
+    const scaleY = this.canvas.height / rect.height;
+    const canvasX = mouseX * scaleX;
+    const canvasY = mouseY * scaleY;
+  
+    const translatedX = Math.round(canvasX - this.canvas.width / 2) - this.offsetX;
+    const translatedY = Math.round(-(canvasY - this.canvas.height / 2)) - this.offsetY;
+  
+    const hoveredPoint = this.points.find((point) => {
+      const distance = Math.sqrt((translatedX - point.x) ** 2 + (translatedY - point.y) ** 2);
+      return distance <= point.radius;
+    });
+  
+    if (hoveredPoint) {
+      this.handlePointSelection(hoveredPoint);
+    } else {
+      this.addPoint(translatedX, translatedY);
+    }
   }
 
   addPoint(x, y) {
@@ -182,4 +221,31 @@ export default class extends Controller {
       },
     });
   };
+
+  handlePointSelection (point) {
+    if (!this.startPoint) {
+      this.startPoint = point;
+    } else {
+      this.drawLine(this.startPoint, point);
+      this.startPoint = null;
+    }
+  }
+
+  drawLine(pointA, pointB) {
+    if (!this.lines) {
+      this.lines = [];
+    }
+
+    this.lines.push({ aX: pointA.x, aY: pointA.y, bX: pointB.x, bY: pointB.y });
+
+    this.ctx.beginPath();
+    this.ctx.moveTo(pointA.x + this.offsetX, -pointA.y - this.offsetY);
+    this.ctx.lineTo(pointB.x + this.offsetX, -pointB.y - this.offsetY);
+    this.ctx.strokeStyle = "gray"
+    this.ctx.lineWidth = 1
+    this.ctx.stroke();
+    this.ctx.closePath();
+
+    console.log(this.lines)
+  }
 }

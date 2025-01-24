@@ -2,7 +2,7 @@
   <div class="ui form">
     <%= form_with model: coord, local: true do |f| %>
       <div class="field">
-        <%= f.text_field :label, placeholder: "Label", value: coord&.label %>
+        <%= f.text_field :label, placeholder: "Label", id: "label", value: coord&.label %>
       </div>
       <div class="two fields">
         <div class="field">
