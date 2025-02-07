@@ -26,4 +26,6 @@ Rails.application.routes.draw do
 
   get "map", to: "map#index"
   resources :coordinates, only: [ :create, :update, :destroy ]
+
+  get "maze", to: "maze#show"
 end
