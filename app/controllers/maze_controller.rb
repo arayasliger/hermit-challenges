@@ -1,6 +1,6 @@
 class MazeController < ApplicationController
   def show
-    size = 15
+    size = 35
     maze = Maze.new(size)
 
     respond_to do |format|
