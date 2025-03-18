@@ -1,13 +1,82 @@
-.tools {
-  margin: auto;
-  width: 512px;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  background-color: #f8f9fa;
+  font-family: 'BlockCraft';
+  text-align: center;
+}
+
+.title {
+  font-size: 5rem;
+  font-family: 'BlockCraft';
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.canvas-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
   padding: 10px;
-  background-color: blanchedalmond;
-  border-radius: 8px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
 .canvas-main {
-  margin: 20px;
-  position: center;
-  background-color: whitesmoke;
+  border: 2px solid #333;
+  background: #fff;
+}
+
+.tools {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background: blanchedalmond;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.color-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 10%;
+  border: 2px solid #333;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.color-button.selected {
+  transform: scale(1.2);
+  border: 3px solid white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.size-slider-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.size-slider {
+  width: 200px;
+}
+
+.slider-label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
 }

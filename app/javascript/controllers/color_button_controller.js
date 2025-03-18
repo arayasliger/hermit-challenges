@@ -13,7 +13,11 @@ export default class extends Controller {
 
   selectSize(event) {
     const canvasController = this.getCanvasController();
-    canvasController.updateSize(this.sizeValue);
+    
+    const size = event.target.value;
+    this.element.dataset.colorButtonSizeValue = size;
+    
+    canvasController.updateSize(size);
   }
 
   getCanvasController() {

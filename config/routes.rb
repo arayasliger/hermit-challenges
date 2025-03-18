@@ -11,7 +11,8 @@ Rails.application.routes.draw do
 
   root "home#index"
 
-  get "canvas", to: "pages#canvas"
+  get "canvas", to: "canvas#index"
+
   resources :articles
 
   get "lists", to: "list#index"

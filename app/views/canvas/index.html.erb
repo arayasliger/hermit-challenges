@@ -1,0 +1,55 @@
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const colorButtons = document.querySelectorAll(".color-button");
+      const defaultColor = "black"
+      
+      colorButtons.forEach(button => {
+        if (button.style.backgroundColor === defaultColor) {
+          button.classList.add("selected");
+        }
+        
+        button.addEventListener("click", function() {
+          colorButtons.forEach(btn => btn.classList.remove("selected"));
+          this.classList.add("selected");
+        });
+      });
+    });
+</script>
+
+<div class="container">
+  <h1 class="title">Pixel Art</h1>
+
+  <div class="canvas-container">
+    <canvas class="canvas-main" data-controller="canvas"></canvas>
+  </div>
+
+  <div class="tools">
+    <div id="color-buttons" class="button-group">
+      <% colors = ["red", "orange", "yellow", "green", "blue", "purple", "pink", "black", "gray", "brown", "beige", "white"] %>
+      
+      <% colors.each do |color| %>
+        <%= tag.button(
+          type: "button",
+          class: "color-button",
+          style: "background-color: #{color};",
+          data: {
+            controller: "color-button",
+            action: "click->color-button#selectColor",
+            "color-button-color-value": color
+          })
+        %>
+      <% end %>
+    </div>
+
+    <div class="size-slider-container">
+      <span class="slider-label">Small</span>
+      <input type="range" min="4" max="32" step="4"
+            value="16" 
+             id="pixel-size-slider" class="size-slider"
+             data-controller="color-button"
+             data-action="input->color-button#selectSize"
+             data-color-button-size-value="">
+      <span class="slider-label">Large</span>
+    </div>
+  </div>
+</div>
