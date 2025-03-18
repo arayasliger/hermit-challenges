@@ -1,0 +1,17 @@
+<div class="hermit-container">
+<h1 class="hermit-title">Welcome to Hermit Challenges!</h1>
+<%= tag.button(
+  "Click for 12 bamboo",
+  type: "button",
+  class: "hermit-button",
+  data: { 
+    controller: "bamboo", 
+    action: "click->bamboo#toggleBamboo" 
+  })
+%>
+<div class="hermit-bamboo-container" id="twelveBamboo">
+  <% 12.times do %>
+    <%= image_tag("bamboo.webp", alt: "Bamboo") %>
+  <% end %>
+</div>
+</div>
