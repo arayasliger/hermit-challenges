@@ -11,7 +11,7 @@
 
 .hermit-title {
     font-family: 'Minecraft';
-    font-size: 2.5rem;
+    font-size: 5rem;
     color: #333;
     margin-bottom: 20px;
 }
@@ -21,6 +21,7 @@
     color: white;
     border: none;
     padding: 10px 20px;
+    font-family: 'BlockCraft';
     font-size: 1.2rem;
     cursor: pointer;
     border-radius: 5px;

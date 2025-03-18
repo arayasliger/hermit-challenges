@@ -1,8 +1,3 @@
-@font-face {
-  font-family: 'Chomsky';
-  src: url('asset_path("Chomsky.otf")') format('opentype');
-}
-
 .custom-title {
   font-family: 'Chomsky';
   font-size: 7rem;
